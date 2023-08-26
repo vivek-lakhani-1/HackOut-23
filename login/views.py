@@ -40,7 +40,7 @@ def Register_Data(request):
         serializer = Serializingdata(data = data)
         if(serializer.is_valid()):
             if(not serializer.errors):
-                Validate_Email(request.data['Email_Id'])
+                # Validate_Email(request.data['Email_Id'])
                 serializer.save()
                 return response.Response({'status':200,'message':'OK!!'},status=status.HTTP_200_OK)
         else:
@@ -50,7 +50,8 @@ def Register_Data(request):
             else:
                 return response.Response({'status': 400,'message':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
     except:
-        return response.Response({'status': 400,'message':"Wrong Parameters"},status=status.HTTP_400_BAD_REQUEST)
+        pass
+    return response.Response({'status': 400,'message':"Wrong Parameters"},status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def login_(request):
