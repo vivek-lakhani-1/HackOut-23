@@ -1,0 +1,4 @@
+Django
+djangorestframework
+openai
+python-decouple
