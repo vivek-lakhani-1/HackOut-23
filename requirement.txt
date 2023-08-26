@@ -3,3 +3,6 @@ djangorestframework
 openai
 python-decouple
 gunicorn
+django-cors-headers
+cryptography
+django-jazzmin
