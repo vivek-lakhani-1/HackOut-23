@@ -1,3 +1,5 @@
+
+
 """
 Django settings for hmi project.
 
@@ -11,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from .cors_policy_header import DEFAULT_HEADERS
+
 
 
 
@@ -47,10 +49,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-CORS_ORIGIN_WHITELIST = [
-  'https://hackout23-xvte.onrender.com',
-  'https://hackout23-xvte.onrender.com/register/'
-]
+CORS_ORIGIN_WHITELIST = ('https://hackout23-xvte.onrender.com')
+
+
+CORS_ALLOWED_ORIGINS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ['*']
 
 MIDDLEWARE = [
 
@@ -127,12 +131,30 @@ USE_I18N = True
 
 USE_TZ = True
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_HEADERS = DEFAULT_HEADERS
+# from .cors_policy_header import DEFAULT_HEADERS
+# CORS_ALLOW_HEADERS = DEFAULT_HEADERS
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+CORS_ALLOWED_ORIGINS = [
+    'https://hackout23-xvte.onrender.com',
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://hackout23-xvte.onrender.com',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
