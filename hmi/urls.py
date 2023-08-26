@@ -22,8 +22,8 @@ from ocr_medical_record import urls as ocrurl
 from book_appointment import urls as bookappointmenturl
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register',include(loginurl)),
     path('login',loginviews.login_),
+    path('register',include(loginurl)),
     path('digitalize_record',include(ocrurl)),
     path('book-appointment',include(bookappointmenturl))
 ]
