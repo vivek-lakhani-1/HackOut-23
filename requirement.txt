@@ -2,3 +2,4 @@ Django
 djangorestframework
 openai
 python-decouple
+gunicorn
