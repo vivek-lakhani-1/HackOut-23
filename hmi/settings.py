@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-CORS_ORIGIN_WHITELIST = (
-  'https://hackout23-xvte.onrender.com'
-)
+CORS_ORIGIN_WHITELIST = [
+  'https://hackout23-xvte.onrender.com',
+  'https://hackout23-xvte.onrender.com/register/'
+]
 
 MIDDLEWARE = [
 
