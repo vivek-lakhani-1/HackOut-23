@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 ]
 CORS_ORIGIN_WHITELIST = (
   'http://localhost:8000',
+    'https://hackout23-xvte.onrender.com'
 )
 
 MIDDLEWARE = [
