@@ -40,7 +40,10 @@ def Register_Data(request):
         serializer = Serializingdata(data = data)
         if(serializer.is_valid()):
             if(not serializer.errors):
-                # Validate_Email(request.data['Email_Id'])
+                try:
+                    Validate_Email(request.data['Email_Id'])
+                except:
+                    pass
                 serializer.save()
                 return response.Response({'status':200,'message':'OK!!'},status=status.HTTP_200_OK)
         else:
