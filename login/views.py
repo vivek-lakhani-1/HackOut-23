@@ -34,21 +34,23 @@ def Validate_Email_Id_Link(request,cipher_text):
     
 @api_view(['POST'])
 def Register_Data(request):
-    data = request.data
-    data['is_verified'] = False
-    serializer = Serializingdata(data = data)
-    if(serializer.is_valid()):
-        if(not serializer.errors):
-            Validate_Email(request.data['Email_Id'])
-            serializer.save()
-            return response.Response({'status':200,'message':'OK!!'},status=status.HTTP_200_OK)
-    else:
-        if('Email_Id' in serializer._errors):
-            if (serializer._errors['Email_Id'][0].code == 'unique'):
-                return response.Response({'status': 409,'message':"Emaild Id Exist"},status=status.HTTP_409_CONFLICT)
+    try:
+        data = request.data
+        data['is_verified'] = False
+        serializer = Serializingdata(data = data)
+        if(serializer.is_valid()):
+            if(not serializer.errors):
+                Validate_Email(request.data['Email_Id'])
+                serializer.save()
+                return response.Response({'status':200,'message':'OK!!'},status=status.HTTP_200_OK)
         else:
-            return response.Response({'status': 400,'message':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-
+            if('Email_Id' in serializer._errors):
+                if (serializer._errors['Email_Id'][0].code == 'unique'):
+                    return response.Response({'status': 409,'message':"Emaild Id Exist"},status=status.HTTP_409_CONFLICT)
+            else:
+                return response.Response({'status': 400,'message':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return response.Response({'status': 400,'message':"Wrong Parameters"},status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def login_(request):
@@ -71,7 +73,11 @@ def resend_email_verify(request):
         filter = Registration_Database.objects.filter(Email_Id = request.data['Email_Id'])
         if(filter.exists()):
             if(filter.values()[0]['is_verified'] == False):
-                Validate_Email(request.data['Email_Id'])
+                try:
+                    pass
+                    # Validate_Email(request.data['Email_Id'])
+                except:
+                    return response.Response({'status':404,'message':'Email is not Valid'},status=status.HTTP_200_OK)
                 return response.Response({'status':200,'message':'Email Verification Link Sended. Please Check Your Inbox.'},status=status.HTTP_200_OK)
             else:
                 return response.Response({'status':400,'message':'Emaild Id Already Verified'},status=status.HTTP_400_BAD_REQUEST)

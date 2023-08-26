@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'jazzmin',
     'login',
+    'book_appointment',
     'ocr_medical_record',
     'django.contrib.admin',
     'django.contrib.auth',

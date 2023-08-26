@@ -16,14 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from login import urls as loginurl
-from login import views as loginviews
-from ocr_medical_record import urls as ocrurl
-from book_appointment import urls as bookappointmenturl
+from . import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('register',include(loginurl)),
-    path('login',loginviews.login_),
-    path('digitalize_record',include(ocrurl)),
-    path('book-appointment',include(bookappointmenturl))
+    path('/',views.book_appointment)
 ]
+
