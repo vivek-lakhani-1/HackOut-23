@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Register_Data
 from rest_framework import status
+
 class Serializingdata(serializers.ModelSerializer):
     class Meta:
         model = Register_Data

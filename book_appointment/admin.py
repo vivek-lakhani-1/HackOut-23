@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import AppointmentData,history_user
 
-# Register your models here.
+admin.site.register(AppointmentData)
+admin.site.register(history_user)

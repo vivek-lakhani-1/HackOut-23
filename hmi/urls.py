@@ -20,10 +20,12 @@ from login import urls as loginurl
 from login import views as loginviews
 from ocr_medical_record import urls as ocrurl
 from book_appointment import urls as bookappointmenturl
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login',loginviews.login_),
     path('register',include(loginurl)),
     path('digitalize_record',include(ocrurl)),
-    path('book-appointment',include(bookappointmenturl))
+    path('Book-Appointment',include(bookappointmenturl)),
+    path('api/check_email_validate',loginviews.check_register),
 ]

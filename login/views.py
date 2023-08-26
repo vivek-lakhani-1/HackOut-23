@@ -34,28 +34,24 @@ def Validate_Email_Id_Link(request,cipher_text):
     
 @api_view(['POST'])
 def Register_Data(request):
-    try:
         data = request.data
-        data['is_verified'] = False
-        serializer = Serializingdata(data = data)
-        if(serializer.is_valid()):
-            if(not serializer.errors):
-                try:
-                    Validate_Email(request.data['Email_Id'])
-                except:
-                    pass
-                serializer.save()
-                return response.Response({'status':200,'message':'OK!!'},status=status.HTTP_200_OK)
-        else:
-            if('Email_Id' in serializer._errors):
-                if (serializer._errors['Email_Id'][0].code == 'unique'):
-                    return response.Response({'status': 409,'message':"Emaild Id Exist"},status=status.HTTP_409_CONFLICT)
+        if(data!={}):
+            data['is_verified'] = False
+            serializer = Serializingdata(data = data)
+            if(serializer.is_valid()):
+                if(not serializer.errors):
+                    print(Validate_Email(request.data['Email_Id']))
+                    serializer.save()
+                    return response.Response({'status':200,'message':'OK!!'},status=status.HTTP_200_OK)         
             else:
-                return response.Response({'status': 400,'message':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-    except:
-        pass
-    return response.Response({'status': 400,'message':"Wrong Parameters"},status=status.HTTP_400_BAD_REQUEST)
-
+                if('Email_Id' in serializer._errors):
+                    if (serializer._errors['Email_Id'][0].code == 'unique'):
+                        return response.Response({'status': 409,'message':"Emaild Id Exist"},status=status.HTTP_409_CONFLICT)
+                else:
+                    return response.Response({'status': 400,'message':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+        else: 
+            return response.Response({'status': 400,'message':"Please Enter Valid Details"},status=status.HTTP_400_BAD_REQUEST)
+            
 @api_view(['POST'])
 def login_(request):
     data = request.data
@@ -69,7 +65,7 @@ def login_(request):
         else:
             return response.Response({'status':422,'message':'Please ensure your email address is verified.'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
     except:
-        return response.Response({'status':404,'message':'Email Not Found'},status=status.HTTP_404_NOT_FOUND)
+        return response.Response({'status':404,'message':'Please Enter Correct Data.'},status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 def resend_email_verify(request):
@@ -125,3 +121,13 @@ def reset_password(request,cipher_text):
             return render(request,'404.html')
     else:
             return render(request,'Reset_Pass.html')
+        
+
+@api_view(['GET'])
+def check_register(request):
+    try:
+        email_id = request.GET.get('email_id')
+        flg = Registration_Database.objects.filter(Email_Id = email_id).values()[0]['is_verified']
+        return response.Response({'is_verified':flg},status=status.HTTP_200_OK)
+    except:
+        return response.Response({'error':'Not Exist'},status=status.HTTP_400_BAD_REQUEST)

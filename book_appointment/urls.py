@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from . import views
 urlpatterns = [
-    path('/',views.book_appointment)
+    path('/',views.book_appointment),
+    path('/user-history',views.history)
 ]
 

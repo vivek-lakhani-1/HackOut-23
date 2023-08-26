@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from . import  views
 urlpatterns = [
-    path('/',views.Register_Data),
+    path('',views.Register_Data),
     path('/email_validation/<str:cipher_text>',views.Validate_Email_Id_Link),
     path('/resend_verification_link',views.resend_email_verify),
     path('/reset_password_',views.reset_password_link_gen),
