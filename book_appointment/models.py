@@ -18,3 +18,7 @@ class AppointmentData(models.Model):
 class history_user(models.Model):
     Emailid = models.EmailField()
     history = models.JSONField()
+    
+    
+    def __str__(self):
+        return self.Emailid

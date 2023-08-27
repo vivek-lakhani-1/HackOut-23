@@ -22,7 +22,6 @@ def Validate_Email_Id_Link(request,cipher_text):
         if(query != None):
             query.is_verified = True
             query.save()
-            # return response.Response({'status':200,'message':'OK!!'},status=status.HTTP_200_OK)
             prm = {
                     'title' : 'Verified',
                     'message' : "Your Email Address is Verified"
