@@ -29,3 +29,5 @@ urlpatterns = [
     path('Book-Appointment',include(bookappointmenturl)),
     path('api/check_email_validate',loginviews.check_register),
 ]
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
+urlpatterns += staticfiles_urlpatterns() # new
